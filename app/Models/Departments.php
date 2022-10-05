@@ -8,4 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Departments extends Model
 {
     use HasFactory;
+
+    protected $fillable =['name','category_id'];
+
+
+    public function companies()
+    {
+        return $this->belongsTo(Categories::class, 'category_id');
+    }
 }

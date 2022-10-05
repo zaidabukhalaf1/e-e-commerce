@@ -7,7 +7,7 @@
         <nav class="s-sidebar__nav">
             <ul>
                 <li>
-                    <a class="s-sidebar__nav-link" href="#0">
+                    <a class="s-sidebar__nav-link" href="{{route('home')}}">
                         <i class="fa fa-home"></i><em>Home</em>
                     </a>
                 </li>
@@ -27,7 +27,7 @@
                     </a>
                 </li>
                 <li>
-                    <a class="s-sidebar__nav-link" href="#0">
+                    <a class="s-sidebar__nav-link" href="{{route('category.index')}}">
                         <i class="fa fa-camera"></i><em>Category</em>
                     </a>
                 </li>

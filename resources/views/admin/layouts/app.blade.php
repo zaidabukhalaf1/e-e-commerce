@@ -10,6 +10,8 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Scripts -->
+
+
     <script src="{{ asset('js/app.js') }}" defer></script>
     <script src="{{ asset('js/min.js') }}" defer></script>
 
@@ -77,7 +79,7 @@
             </div>
         </nav>
 
-        <main class="py-4" style="margin-left: 245px">
+        <main class="py-4">
             @yield('content')
         </main>
     </div>

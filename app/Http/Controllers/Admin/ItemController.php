@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Items;
 
 class ItemController extends Controller
 {
@@ -14,7 +15,10 @@ class ItemController extends Controller
      */
     public function index()
     {
-        //
+        $items = Items::all();
+        dd($items);
+        return view('admin.pages.Category.list',compact('categories'));
+
     }
 
     /**

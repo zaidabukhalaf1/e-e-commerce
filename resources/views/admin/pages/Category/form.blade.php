@@ -18,10 +18,11 @@
     <div class="form-group col-xl-4 col-12 col-lg-6 col-md-6">
         <label for="companies"> Companies </label>
         <select name="companies" class="form-control">
-            @foreach($categories as $category )
-                <option  value="{{$category->company_id}}" {{(Request::old('companies')==$category->company_id)?"selected":""}}
-                     {{(isset($category->company_id)?"selected":"")}}>
-                    {{$category->companies->name}}
+            <option>select Companies</option>
+            @foreach($companies as $company )
+                <option  value="{{$company->id}}" {{(Request::old('company')==$company->id)?"selected":""}}
+                     {{(isset($company->id)?"selected":"")}}>
+                    {{$company->name}}
                 </option>
             @endforeach
         </select>
@@ -30,9 +31,11 @@
     <div class="form-group col-xl-4 col-12 col-lg-6 col-md-6 ms-5">
         <label for="items"> Items </label>
         <select name="items" class="form-control">
-            @foreach($categories as $category )
-
-                <option> {{$category->items->name}} </option>
+            @foreach($items as $item )
+                <option  value="{{$item->id}}" {{(Request::old('item')==$item->id)?"selected":""}}
+                    {{(isset($item->id)?"selected":"")}}>
+                   {{$item->name}}
+               </option>
             @endforeach
         </select>
     </div>

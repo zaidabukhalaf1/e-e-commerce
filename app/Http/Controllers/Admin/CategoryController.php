@@ -4,7 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Categories;
+use App\Models\Items;
+use App\Models\Companies;
 use Illuminate\Http\Request;
+
 
 class CategoryController extends Controller
 {
@@ -26,6 +29,7 @@ class CategoryController extends Controller
 
 
             return view('admin.pages.Category.list',compact('categories'));
+
     }
 
     /**
@@ -36,8 +40,11 @@ class CategoryController extends Controller
     public function create()
     {
         $categories = $this->categories::all();
+        $companies = Companies::all();
+        $items = Items::all();
 
-        return  view('admin.pages.Category.create',compact('categories'));
+
+        return  view('admin.pages.Category.create',compact('categories','companies','items'));
     }
 
     /**
@@ -46,9 +53,9 @@ class CategoryController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CategoryRequst $request)
     {
-        //
+
     }
 
     /**

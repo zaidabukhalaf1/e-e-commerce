@@ -17,8 +17,11 @@
 
                 <div class="card mt-5">
                     <div class="card-body">
-
-
+                        <form method="post" action="{{route('category.update',$categories->id)}}" enctype="multipart/form-data">
+                            @csrf
+                            @method('PUT')
+                            @include('admin.pages.Category.form')
+                            <button type="submit" class="btn btn-primary">Edit</button>
                     </div>
                 </div>
 

@@ -28,7 +28,7 @@
                 </li>
                 <li>
                     <a class="s-sidebar__nav-link" href="{{route('category.index')}}">
-                        <i class="fa fa-camera"></i><em>Category</em>
+                        <i class="fa fa-window-close"></i><em>Category</em>
                     </a>
                 </li>
                 <li>

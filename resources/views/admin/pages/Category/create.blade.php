@@ -17,11 +17,11 @@
 
                 <div class="card mt-5 ">
                     <div class="card-body">
-                <form method="post" action="{{route('category.store')}}">
-                    @csrf
-                    @include('admin.pages.Category.form')
-                    <button type="submit" class="btn btn-primary">Create</button>
-                </form>
+                        <form method="post" action="{{route('category.store')}}" enctype="multipart/form-data">
+                            @csrf
+                            @include('admin.pages.Category.form')
+                            <button type="submit" class="btn btn-primary">Create</button>
+                        </form>
                     </div>
                 </div>
 
@@ -31,8 +31,5 @@
         </div>
 
     </div>
-
-
-
 
 @endsection

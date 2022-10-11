@@ -2,6 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\CompanyController;
+use App\Http\Controllers\Admin\DepartmentController;
+use \App\Http\Controllers\Admin\ItemController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -25,7 +29,11 @@ Route::middleware('auth')->group(function (){
 
 
     Route::resource('/category',CategoryController::class);
+    Route::resource('/company',CompanyController::class);
+    Route::resource('/department',DepartmentController::class);
+    Route::resource('/item',ItemController::class);
 });
+
 
 
 

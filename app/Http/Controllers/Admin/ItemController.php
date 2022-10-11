@@ -3,11 +3,19 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ItemRequest;
 use Illuminate\Http\Request;
 use App\Models\Items;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class ItemController extends Controller
 {
+    protected $items;
+    public function __construct(Items $items)
+    {
+        $this->items = $items;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -16,8 +24,7 @@ class ItemController extends Controller
     public function index()
     {
         $items = Items::all();
-        dd($items);
-        return view('admin.pages.Category.list',compact('categories'));
+        return view('admin.pages.Items.list',compact('items'));
 
     }
 
@@ -28,7 +35,8 @@ class ItemController extends Controller
      */
     public function create()
     {
-        //
+
+        return  view('admin.pages.Items.create');
     }
 
     /**
@@ -37,9 +45,26 @@ class ItemController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ItemRequest $request)
     {
-        //
+        if ($request->hasfile('image')) {
+            $file = $request->file('image');
+            $extension = $file->getClientOriginalExtension();
+            $filename = time() . '.' . $extension;
+            $file->move('images/items/', $filename);
+            $request->image = $filename;
+        }
+        $this->items::create([
+           'name'=>$request->name,
+           'price'=>$request->price,
+           'description'=>$request->description,
+            'image'=>$request->image
+        ]);
+
+        Alert::success('Created Item Successfully');
+
+        return redirect()->route('item.index');
+
     }
 
     /**
@@ -50,7 +75,9 @@ class ItemController extends Controller
      */
     public function show($id)
     {
-        //
+        $items= $this->items::findOrFail($id);
+
+        return view('admin.pages.Items.show',compact('items'));
     }
 
     /**
@@ -61,7 +88,9 @@ class ItemController extends Controller
      */
     public function edit($id)
     {
-        //
+        $items= $this->items::findOrFail($id);
+
+        return view('admin.pages.Items.edit',compact('items'));
     }
 
     /**
@@ -73,7 +102,26 @@ class ItemController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $items= $this->items::findOrFail($id);
+        $items->name = $request->name;
+        $items->price=$request->price;
+        $items->description= $request->description;
+        if ($request->hasfile('image')){
+            $file = $request->file('image');
+            $extension = $file->getClientOriginalExtension();
+            $filename = time().'.'.$extension;
+            $file->move('images/items/', $filename);
+            $request->image = $filename;
+
+        }
+
+        $items->save();
+        if (!$items){
+
+        }
+        Alert::success('Update Item Successfully');
+
+        return redirect()->route('item.index');
     }
 
     /**
@@ -84,6 +132,11 @@ class ItemController extends Controller
      */
     public function destroy($id)
     {
-        //
+
+        $items= $this->items::findOrFail($id);
+        $items->delete();
+        return redirect()->route('item.index');
+
+
     }
 }

@@ -55,7 +55,7 @@ class CategoryController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CategoryRequest $request)
     {
 
 
@@ -73,8 +73,6 @@ class CategoryController extends Controller
             'image' => $request->image,
         ]);
         Alert::success('Created Category Successfully');
-
-
 
         return redirect()->route('category.index');
     }
@@ -131,6 +129,10 @@ class CategoryController extends Controller
 
         $categories->save();
 
+        if (!$categories){
+            return redirect()->route('category.index');
+
+        }
         Alert::success('Update Category Successfully');
 
         return redirect()->route('category.index');

@@ -3,10 +3,20 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\DepartmentRequest;
+use App\Models\Categories;
+use App\Models\Departments;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class DepartmentController extends Controller
 {
+    protected $departments;
+    public function __construct(Departments $departments)
+    {
+        $this->departments = $departments;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +24,9 @@ class DepartmentController extends Controller
      */
     public function index()
     {
-        //
+        $departments = $this->departments::all();
+
+        return  view('admin.pages.Department.list',compact('departments'));
     }
 
     /**
@@ -24,7 +36,10 @@ class DepartmentController extends Controller
      */
     public function create()
     {
-        //
+        $categories = Categories::all();
+
+        return  view('admin.pages.Department.create',compact('categories'));
+
     }
 
     /**
@@ -33,9 +48,16 @@ class DepartmentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(DepartmentRequest $request)
     {
-        //
+        $this->departments::create([
+            'name'=>$request->name,
+            'category_id'=>$request->category_id,
+        ]);
+
+        Alert::success('Created Department Successfully');
+
+        return redirect()->route('department.index');
     }
 
     /**
@@ -46,7 +68,9 @@ class DepartmentController extends Controller
      */
     public function show($id)
     {
-        //
+        $departments = $this->departments::findOrFail($id);
+
+        return view('admin.pages.Department.show',compact('departments'));
     }
 
     /**
@@ -57,7 +81,10 @@ class DepartmentController extends Controller
      */
     public function edit($id)
     {
-        //
+        $categories = Categories::all();
+        $departments = $this->departments::findOrFail($id);
+        return view('admin.pages.Department.edit',compact('departments','categories'));
+
     }
 
     /**
@@ -69,7 +96,21 @@ class DepartmentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $departments = $this->departments::findOrFail($id);
+
+        $departments->name = $request->name;
+        $departments->category_id = $request->category_id;
+
+        $departments->save();
+
+        if (!$departments){
+
+        }
+
+        Alert::success('Update Department Successfully');
+        return redirect()->route('department.index');
+
+
     }
 
     /**
@@ -80,6 +121,9 @@ class DepartmentController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $departments = $this->departments::findOrFail($id);
+        $departments->delete();
+
+        return redirect()->route('department.index');
     }
 }

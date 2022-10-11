@@ -25,4 +25,15 @@ class HomeController extends Controller
     {
         return view('home');
     }
+//    public function upload(Request $request){
+//
+//        if ($request->hasfile('avatar')) {
+//            $file = $request->file('avatar');
+//            $extension = $file->getClientOriginalExtension();
+//            $filename = time() . '.' . $extension;
+//            $file->move('images/users/', $filename);
+//            $request->avatar = $filename;
+//        }
+//        return redirect()->back();
+//    }
 }

@@ -3,10 +3,19 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CompanyRequest;
+use App\Models\Companies;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
-class CompnyController extends Controller
+class CompanyController extends Controller
 {
+    protected $companies;
+    public function __construct(Companies $companies)
+    {
+        $this->companies = $companies;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +23,9 @@ class CompnyController extends Controller
      */
     public function index()
     {
-        //
+       $companies = $this->companies::all();
+
+        return view('admin.pages.Company.list',compact('companies'));
     }
 
     /**
@@ -24,7 +35,8 @@ class CompnyController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.pages.Company.create');
+
     }
 
     /**
@@ -33,9 +45,14 @@ class CompnyController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CompanyRequest $request)
     {
-        //
+        $this->companies::create([
+           'name'=>$request->name,
+        ]);
+        Alert::success('Created Company Successfully');
+
+        return redirect()->route('company.index');
     }
 
     /**
@@ -46,7 +63,9 @@ class CompnyController extends Controller
      */
     public function show($id)
     {
-        //
+        $companies = $this->companies::findOrFail($id);
+
+        return view('admin.pages.Company.show',compact('companies'));
     }
 
     /**
@@ -57,7 +76,8 @@ class CompnyController extends Controller
      */
     public function edit($id)
     {
-        //
+        $companies = $this->companies::findOrFail($id);
+        return view('admin.pages.Company.edit',compact('companies'));
     }
 
     /**
@@ -69,7 +89,17 @@ class CompnyController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $companies = $this->companies::findOrFail($id);
+        $companies->name = $request->name;
+        $companies->save();
+
+        if (!$companies){
+
+        }
+        Alert::success('Update Company Successfully');
+
+        return redirect()->route('company.index');
+
     }
 
     /**
@@ -80,6 +110,9 @@ class CompnyController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $companies = $this->companies::findOrFail($id);
+        $companies->delete();
+        return redirect()->route('company.index');
+
     }
 }

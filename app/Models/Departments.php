@@ -12,7 +12,7 @@ class Departments extends Model
     protected $fillable =['name','category_id'];
 
 
-    public function companies()
+    public function category()
     {
         return $this->belongsTo(Categories::class, 'category_id');
     }

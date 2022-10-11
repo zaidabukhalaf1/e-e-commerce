@@ -13,45 +13,34 @@
 
                 <div class="card">
                     <div class="card-body d-flex justify-content-around">
-                        <h3 class="mt-3">Categories</h3>
-                        <a class="mt-3" href="{{route('category.create')}}"><i class="fa fa-plus"
-                                                                               style="font-size: 18px;color: #243e56;">
+                        <h3 class="mt-3">Companies</h3>
+                        <a class="mt-3" href="{{route('company.create')}}"><i class="fa fa-plus"
+                                                                              style="font-size: 18px;color: #243e56;">
                                 Add</i></a>
                     </div>
                 </div>
 
                 <div class="card mt-5">
                     <div class="card-body ">
-                        <table id="myTable">
+                        <table>
                             <thead>
                             <tr>
                                 <th scope="col">ID</th>
                                 <th scope="col">Name</th>
-                                <th scope="col">Items</th>
-                                <th scope="col-2">Company</th>
-                                <th scope="col">Image</th>
                                 <th scope="col">Actions</th>
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($categories as $category)
+                            @foreach($companies as $company)
 
                                 <tr>
-
-                                    <td data-label="ID">{{$category->id}}</td>
-                                    <td data-label="Name">{{$category->name}}</td>
-                                    <td data-label="Item">{{$category->items->name}}</td>
-                                    <td data-label="Company">{{$category->companies->name}}</td>
-                                    <td data-label="Image"><img alt="image name"
-                                                                src="{{ url('images/categories/'.$category->image) }}"
-                                                                width="20%" height="15%"/></td>
-                                    <td data-label="Actions" class="d-flex"><a href="{{route("category.show",$category->id)}}"><i class="fa fa-eye"
-                                                                                              style="font-size: 18px"></i></a>
-                                    <a class="me-2" href="{{route("category.edit", $category->id)}}"><i
+                                    <td data-label="ID">{{$company->id}}</td>
+                                    <td data-label="Name">{{$company->name}}</td>
+                                    <td data-label="Actions" class="d-flex" ><a href="{{route("company.show",$company->id)}}"><i class="fa fa-eye ms-5"
+                                                                                             style="font-size: 18px"></i></a>
+                                        <a class="me-2" href="{{route("company.edit", $company->id)}}"><i
                                                 class="fa fa-edit" style="font-size: 18px"></i></a>
-
-
-                                        <form method="POST" action="{{ route("category.destroy",$category->id) }}">
+                                        <form method="POST" action="{{ route("company.destroy",$company->id) }}">
                                             @csrf
                                             @method('DELETE')
                                             <input name="_method" type="hidden" value="DELETE">
@@ -65,6 +54,8 @@
                             @endforeach
                             </tbody>
                         </table>
+
+
                     </div>
                 </div>
 
@@ -93,9 +84,5 @@
                     }
                 });
         });
-        // $(document).ready( function () {
-        //     $('#myTable').DataTable();
-        // } );
-
     </script>
 @endsection

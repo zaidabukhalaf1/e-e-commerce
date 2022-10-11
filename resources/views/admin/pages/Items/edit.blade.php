@@ -11,16 +11,17 @@
             <div class="col-8">
                 <div class="card">
                     <div class="card-body d-flex justify-content-around">
-                        <h3 class="mt-3">Create Categories</h3>
+                        <h3 class="mt-3">Edit Item</h3>
                     </div>
                 </div>
 
-                <div class="card mt-5 ">
+                <div class="card mt-5">
                     <div class="card-body">
-                        <form method="post" id="category" action="{{route('category.store')}}" enctype="multipart/form-data">
+                        <form method="post" id="item" action="{{route('item.update',$items->id)}}" enctype="multipart/form-data">
                             @csrf
-                            @include('admin.pages.Category.form')
-                            <button type="submit" class="btn btn-primary ms-5 mt-5">Create</button>
+                            @method('PUT')
+                            @include('admin.pages.Items.form')
+                            <button type="submit" class="btn btn-primary">Update</button>
                         </form>
                     </div>
                 </div>
@@ -31,6 +32,7 @@
         </div>
 
     </div>
+
 
 
 
